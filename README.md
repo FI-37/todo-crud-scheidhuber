@@ -1,2 +1,4 @@
-# todo-crud-scheidhuber
-Little TODO application for the web.
+# TODO-CRUD Application
+
+Little example TODO application for the web.
+
