@@ -9,11 +9,14 @@ function write_log($action, $data) {
     fclose($log);
 }
 
-write_log("init", "todo-api.php was called");
+$todo_items = [
+    ["id" => "someUniqueId", "title" => "Erste Aufgabe"]
+];
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-        // Placeholder for reading TODO items
+        echo json_encode($todo_items);
+        write_log("GET", $todo_items);
         break;
     case 'POST':
         // Placeholder for creating a new TODO
