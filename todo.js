@@ -4,6 +4,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const apiUrl = 'todo-api.php';
 
 
+    const getDeleteButton = (item) => {
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Löschen';
+
+        // Handle delete button click
+        deleteButton.addEventListener('click', function() {
+            fetch(apiUrl, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: item.id })
+            })
+            .then(response => response.json())
+            .then(() => {
+                fetchTodos(); // Reload todo list
+            });
+        });
+
+        return deleteButton;
+    }
+
     const fetchTodos = () => {
         fetch(apiUrl)
         .then(response => response.json())
@@ -12,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
             data.forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = item.title;
+                li.appendChild(getDeleteButton(item));
                 todoList.appendChild(li);
             });
         });
