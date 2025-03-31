@@ -26,6 +26,27 @@ document.addEventListener('DOMContentLoaded', function() {
         return deleteButton;
     }
 
+    const getCompleteButton = (item) => {
+        const completeButton = document.createElement('button');
+        completeButton.textContent = 'Erledigt';
+
+        completeButton.addEventListener('click', function() {
+            fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: item.id, completed: true })
+            })
+            .then(response => response.json())
+            .then(updatedItem => {
+                fetchTodos();
+            });
+        });
+
+        return completeButton;
+    }
+
     const fetchTodos = () => {
         fetch(apiUrl)
         .then(response => response.json())
@@ -36,6 +57,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const li = document.createElement('li');
                 li.textContent = item.title;
                 li.appendChild(getDeleteButton(item));
+                li.appendChild(getCompleteButton(item));
+                if (item.completed) {
+                    li.style.textDecoration = 'line-through';
+                }
                 todoList.appendChild(li);
             });
         });

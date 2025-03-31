@@ -28,7 +28,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // Get data from the input stream.
         $data = json_decode(file_get_contents('php://input'), true);
         // Create new todo item.
-        $new_todo = ["id" => uniqid(), "title" => $data['title']];
+        $new_todo = ["id" => uniqid(), "title" => $data['title'], "completed" => false];
         // Add new item to our todo item list.
         $todo_items[] = $new_todo;
         // Write todo items to JSON file.
@@ -37,7 +37,18 @@ switch ($_SERVER['REQUEST_METHOD']) {
         echo json_encode($new_todo);
         break;
     case 'PUT':
-        // Placeholder for updating a TODO
+        $data = json_decode(file_get_contents('php://input'), true);
+        // Search for the given todo id and updated the completed field
+        foreach ($todo_items as &$todo) {
+            if ($todo['id'] == $data['id']) {
+                $todo['completed'] = $data['completed'];
+                break;
+            }
+        }
+        // Get the changed item back to the client.
+        file_put_contents($todo_file, json_encode($todo_items));
+        echo json_encode($data);
+        write_log("PUT", $data);
         break;
     case 'DELETE':
         // Get data from the input stream.
