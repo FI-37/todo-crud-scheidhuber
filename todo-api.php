@@ -1,6 +1,25 @@
 <?php
 header('Content-Type: application/json');
 
+$host = '127.0.0.1';
+$db = 'todo_list';
+$user = 'j23d';
+$pass = 'beep';
+$charset = 'utf8mb4';
+
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+];
+
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+} catch (\PDOException $e) {
+    error_log("PDOException: " . $e->getMessage() . " in "
+              . $e->getFile() . " on line " . $e->getLine());
+}
+
 // LOG function in PHP
 function write_log($action, $data) {
     $log = fopen('log.txt', 'a');
@@ -21,20 +40,22 @@ if (file_exists($todo_file)) {
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
+        $statement = $pdo->query("SELECT * FROM todo");
+        $todo_items = $statement->fetchAll();
         echo json_encode($todo_items);
         write_log("GET", $todo_items);
         break;
     case 'POST':
         // Get data from the input stream.
         $data = json_decode(file_get_contents('php://input'), true);
-        // Create new todo item.
-        $new_todo = ["id" => uniqid(), "title" => $data['title'], "completed" => false];
-        // Add new item to our todo item list.
-        $todo_items[] = $new_todo;
-        // Write todo items to JSON file.
-        file_put_contents($todo_file, json_encode($todo_items));
-        // Return the new item.
-        echo json_encode($new_todo);
+
+        // Insert given data as new todo into database.
+        $statement = $pdo->prepare(
+            "INSERT INTO todo (title, completed) VALUES (:title, :completed)");
+        $statement->execute(['title' => $data['title'], 'completed' => 0]);
+
+        // Return success message.
+        echo json_encode(['status' => 'success']);
         break;
     case 'PUT':
         $data = json_decode(file_get_contents('php://input'), true);
