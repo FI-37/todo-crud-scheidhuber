@@ -59,16 +59,25 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
     case 'PUT':
         $data = json_decode(file_get_contents('php://input'), true);
-        // Search for the given todo id and updated the completed field
-        foreach ($todo_items as &$todo) {
-            if ($todo['id'] == $data['id']) {
-                $todo['completed'] = $data['completed'];
-                break;
-            }
-        }
-        // Get the changed item back to the client.
-        file_put_contents($todo_file, json_encode($todo_items));
-        echo json_encode($data);
+
+        // Update todo item in the database.
+        $statement = $pdo->prepare(
+            "UPDATE todo SET completed = :completed WHERE id = :id");
+        $statement->execute(["id" => $data["id"], "completed" => $data["completed"]]);
+
+        // // Search for the given todo id and updated the completed field
+        // foreach ($todo_items as &$todo) {
+        //     if ($todo['id'] == $data['id']) {
+        //         $todo['completed'] = $data['completed'];
+        //         break;
+        //     }
+        // }
+        // // Get the changed item back to the client.
+        // file_put_contents($todo_file, json_encode($todo_items));
+        // echo json_encode($data);
+
+        echo json_encode(['status' => 'success']);
+
         write_log("PUT", $data);
         break;
     case 'DELETE':
