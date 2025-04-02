@@ -27,8 +27,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     const getCompleteButton = (item) => {
+        let setComplete = 1;
+        let buttonText = "Erledigt";
+
+        if (item.completed) {
+            setComplete = 0;
+            buttonText = "Unerledigt";
+        }
+
         const completeButton = document.createElement('button');
-        completeButton.textContent = 'Erledigt';
+        completeButton.textContent = buttonText;
 
         completeButton.addEventListener('click', function() {
             fetch(apiUrl, {
@@ -36,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id: item.id, completed: true })
+                body: JSON.stringify({ id: item.id, completed: setComplete })
             })
             .then(response => response.json())
             .then(updatedItem => {
