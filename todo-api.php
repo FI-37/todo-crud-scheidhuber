@@ -28,16 +28,6 @@ function write_log($action, $data) {
     fclose($log);
 }
 
-// Read content of the file and decode JSON data to an array.
-$todo_file = 'todo.json';
-if (file_exists($todo_file)) {
-    $todo_items = json_decode(
-        file_get_contents($todo_file),
-        true);
-} else {
-    $todos_items = [];
-}
-
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         $statement = $pdo->query("SELECT * FROM todo");
@@ -65,19 +55,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
             "UPDATE todo SET completed = :completed WHERE id = :id");
         $statement->execute(["id" => $data["id"], "completed" => $data["completed"]]);
 
-        // // Search for the given todo id and updated the completed field
-        // foreach ($todo_items as &$todo) {
-        //     if ($todo['id'] == $data['id']) {
-        //         $todo['completed'] = $data['completed'];
-        //         break;
-        //     }
-        // }
-        // // Get the changed item back to the client.
-        // file_put_contents($todo_file, json_encode($todo_items));
-        // echo json_encode($data);
-
+        // Tell the client the success of the operation.
         echo json_encode(['status' => 'success']);
-
         write_log("PUT", $data);
         break;
     case 'DELETE':
@@ -87,15 +66,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // Delete todo item from the database.
         $statement = $pdo->prepare("DELETE FROM todo WHERE id = :id");
         $statement->execute(["id" => $data["id"]]);
-
-        // // Filter Todo to delete from the list.
-        // $todo_items = array_values(
-        //     array_filter($todo_items,
-        //         function($todo) use ($data) {
-        //             return $todo['id'] !== $data['id'];
-        // }));
-        // // Write the Todos back to JSON file.
-        // file_put_contents('todo.json', json_encode($todo_items));
 
         // Tell the client the success of the operation.
         echo json_encode(['status' => 'success']);
