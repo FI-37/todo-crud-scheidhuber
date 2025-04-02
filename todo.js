@@ -50,6 +50,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return completeButton;
     }
 
+    const getUpdateButton = (item) => {
+
+        const updateButton = document.createElement('button');
+        updateButton.textContent = 'Aktualisieren';
+
+        // Handle update button click
+        updateButton.addEventListener('click', function() {
+            document.getElementById('todo-id').value = item.id;
+            document.getElementById('todo-update-input').value = item.title;
+            document.getElementById('todo-update-form').style.display = 'block';
+        });
+
+        return updateButton;
+    }
+
     const fetchTodos = () => {
         fetch(apiUrl)
         .then(response => response.json())
@@ -61,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 li.textContent = item.title;
                 li.appendChild(getDeleteButton(item));
                 li.appendChild(getCompleteButton(item));
+                li.appendChild(getUpdateButton(item));
                 if (item.completed) {
                     li.style.textDecoration = 'line-through';
                 }
@@ -76,7 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const todoInput = inputElement.value;
         inputElement.value = "";
 
-
         fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -90,6 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    document.getElementById('todo-update-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const id = document.getElementById('todo-id').value;
+        const todoInput = document.getElementById('todo-update-input').value;
+        console.log(id);
+        console.log(todoInput);
+    });
 
     fetchTodos();
 });
