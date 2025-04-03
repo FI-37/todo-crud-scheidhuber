@@ -2,26 +2,12 @@
 header('Content-Type: application/json');
 
 require_once('./logging.php');
-require_once('./config.php');
 require_once('./classes/TodoDB.php');
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-];
-
-try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
-} catch (\PDOException $e) {
-    error_log("PDOException: " . $e->getMessage() . " in "
-              . $e->getFile() . " on line " . $e->getLine());
-}
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-        $statement = $pdo->query("SELECT * FROM todo");
-        $todo_items = $statement->fetchAll();
+        $todo_items = $todoDB->getTodos();
         echo json_encode($todo_items);
         write_log("GET", $todo_items);
         break;
