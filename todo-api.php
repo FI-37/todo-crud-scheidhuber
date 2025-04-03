@@ -4,6 +4,10 @@ header('Content-Type: application/json');
 require_once('./logging.php');
 require_once('./classes/TodoDB.php');
 
+/**
+ * Todo list database object.
+ */
+$todoDB = new TodoDB();
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
@@ -21,9 +25,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
 
         // Insert given data as new todo into database.
-        $statement = $pdo->prepare(
-            "INSERT INTO todo (title, completed) VALUES (:title, :completed)");
-        $statement->execute(['title' => $data['title'], 'completed' => 0]);
+        $todoDB->addTodo($data['title']);
 
         // Return success message.
         echo json_encode(['status' => 'success']);

@@ -3,12 +3,6 @@
 require_once('./logging.php');
 require_once('./config.php');
 
-/**
- * Todo list database object.
- *
- * Global variable with the object of our TodoDB class.
- */
-$todoDB = new TodoDB();
 
 class TodoDB {
     private $connection;
@@ -37,6 +31,12 @@ class TodoDB {
         $statement = $this->connection->query("SELECT * FROM todo");
         $todo_items = $statement->fetchAll();
         return $todo_items;
+    }
+
+    public function addTodo($title) {
+        $statement = $this->connection->prepare(
+            "INSERT INTO todo (title, completed) VALUES (:title, :completed)");
+        $statement->execute(['title' => $title, 'completed' => 0]);
     }
 
 }
