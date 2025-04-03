@@ -101,7 +101,11 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => response.json())
         .then(data => {
-            fetchTodos(); // Reload todo list
+            if (data.status == 'success') {
+                fetchTodos(); // Reload todo list
+            } else {
+                document.getElementById('error-message').innerText = `${data.status}: ${data.message}`;
+            }
         });
     });
 

@@ -39,6 +39,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // Get data from the input stream.
         $data = json_decode(file_get_contents('php://input'), true);
 
+        if(!isset($data["title"])) {
+            echo json_encode(['status' => 'error', 'message' => '"title" is missing']);
+            break;
+        }
+
         // Insert given data as new todo into database.
         $statement = $pdo->prepare(
             "INSERT INTO todo (title, completed) VALUES (:title, :completed)");
