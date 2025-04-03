@@ -51,9 +51,15 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $data = json_decode(file_get_contents('php://input'), true);
 
         // Update todo item in the database.
-        $statement = $pdo->prepare(
-            "UPDATE todo SET completed = :completed WHERE id = :id");
-        $statement->execute(["id" => $data["id"], "completed" => $data["completed"]]);
+        if(isset($data["completed"])) {
+            $statement = $pdo->prepare(
+                "UPDATE todo SET completed = :completed WHERE id = :id");
+            $statement->execute(["id" => $data["id"], "completed" => $data["completed"]]);
+        } else if (isset($data["title"])) {
+            $statement = $pdo->prepare(
+                "UPDATE todo SET title = :title WHERE id = :id");
+            $statement->execute(["id" => $data["id"], "title" => $data["title"]]);
+        }
 
         // Tell the client the success of the operation.
         echo json_encode(['status' => 'success']);
