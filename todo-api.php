@@ -35,9 +35,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         // Update todo item in the database.
         if(isset($data["completed"])) {
-            $statement = $pdo->prepare(
-                "UPDATE todo SET completed = :completed WHERE id = :id");
-            $statement->execute(["id" => $data["id"], "completed" => $data["completed"]]);
+            $todoDB->setCompleted($data['id'], $data['completed']);
         } else if (isset($data["title"])) {
             $statement = $pdo->prepare(
                 "UPDATE todo SET title = :title WHERE id = :id");
