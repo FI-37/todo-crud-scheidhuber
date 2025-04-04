@@ -1,0 +1,10 @@
+{
+    "require": {
+        "phpdocumentor/shim": "^3.7"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpdocumentor/shim": true
+        }
+    }
+}

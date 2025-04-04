@@ -1,2 +1,9 @@
 log.txt
 config.php
+
+# composer
+vendor/
+
+# phpdocumentor
+.phpdoc
+docs
