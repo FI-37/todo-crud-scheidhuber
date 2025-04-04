@@ -27,6 +27,24 @@ class TodoDB {
         }
     }
 
+    /**
+     * Prepare and execute the given sql statement.
+     *
+     * @param string $sql The sql statement.
+     * @param array $params An array of the needed parameters.
+     * @return object $stmt The excecuted statement.
+     */
+    private function prepareExecuteStatement($sql, $params = []) {
+        try {
+            write_log("SQL", $sql);
+            $stmt = $this->connection->prepare($sql);
+            $stmt->execute($params);
+            return $stmt;
+        } catch(Exception $e) {
+            error_log($e->getMessage());
+        }
+    }
+
     public function getTodos() {
         $statement = $this->connection->query("SELECT * FROM todo");
         $todo_items = $statement->fetchAll();
@@ -34,15 +52,28 @@ class TodoDB {
     }
 
     public function addTodo($title) {
-        $statement = $this->connection->prepare(
-            "INSERT INTO todo (title, completed) VALUES (:title, :completed)");
-        $statement->execute(['title' => $title, 'completed' => 0]);
+        $this->prepareExecuteStatement(
+            "INSERT INTO todo (title, completed) VALUES (:title, :completed)",
+            ['title' => $title, 'completed' => 0]
+        );
     }
 
-    public function setCompleted($id, $completed) {#
-        $statement = $this->connection->prepare(
-            "UPDATE todo SET completed = :completed WHERE id = :id");
-        $statement->execute(["id" => $id, "completed" => $completed]);
+    public function setCompleted($id, $completed) {
+        $statement = $this->prepareExecuteStatement(
+            "UPDATE todo SET completed = :completed WHERE id = :id",
+            ["id" => $id, "completed" => $completed]);
+    }
+
+    public function updateTodo($id, $title) {#
+        $statement = $this->prepareExecuteStatement(
+            "UPDATE todo SET title = :title WHERE id = :id",
+            ["id" => $id, "title" => $title]);
+    }
+
+    public function deleteTodo($id) {
+        $statement = $this->prepareExecuteStatement(
+            "DELETE FROM todo WHERE id = :id",
+            ["id" => $id]);
     }
 
 }

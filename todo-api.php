@@ -37,9 +37,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         if(isset($data["completed"])) {
             $todoDB->setCompleted($data['id'], $data['completed']);
         } else if (isset($data["title"])) {
-            $statement = $pdo->prepare(
-                "UPDATE todo SET title = :title WHERE id = :id");
-            $statement->execute(["id" => $data["id"], "title" => $data["title"]]);
+            $todoDB->updateTodo($data['id'], $data['title']);
         }
 
         // Tell the client the success of the operation.
@@ -51,8 +49,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $data = json_decode(file_get_contents('php://input'), true);
 
         // Delete todo item from the database.
-        $statement = $pdo->prepare("DELETE FROM todo WHERE id = :id");
-        $statement->execute(["id" => $data["id"]]);
+        $todoDB->deleteTodo($data['id']);
 
         // Tell the client the success of the operation.
         echo json_encode(['status' => 'success']);
