@@ -95,3 +95,11 @@ p {
 #cat-video {
     border: 3px solid #ddd;
 }
+
+
+.parent > .child {
+    color: green;
+}
+.sibling-1 + .sibling-2 {
+    color: red;
+}
