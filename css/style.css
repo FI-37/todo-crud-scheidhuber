@@ -123,3 +123,10 @@ p {
     content: " Nachher";
     color: green;
 }
+
+.overflow-box {
+    width: 100px;
+    height: 50px;
+    overflow: auto;
+    background-color: lightblue;
+}
