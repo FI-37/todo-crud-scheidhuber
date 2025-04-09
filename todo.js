@@ -74,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
             data.forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = item.title;
+                li.className = 'todo-item';
                 li.appendChild(getDeleteButton(item));
                 li.appendChild(getCompleteButton(item));
                 li.appendChild(getUpdateButton(item));

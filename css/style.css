@@ -1,18 +1,25 @@
 /* Selektoren */
 
+:root {
+    font-size: 18px;
+}
+
 body {
-    font-family: "Doto";
+    font-family: Arial, Helvetica, sans-serif;
+    color: #777;
+    background-color: beige;
+    font-size: 20px;
 }
 
 /* Tag-Selektor (bspw. <ul ... */
 ul {
-    background-color: rgb(58, 165, 42);
+    font-size: 1.2em;
     border: 5px solid blue;
 }
 
 /* ID-Selektor (bspw. <div id="description"... */
 #description {
-    color: royalblue;
+    color: #333;
 }
 
 h2 {
@@ -42,9 +49,17 @@ input[type="text"] {
     font-family: "Doto";
 }
 
+li.todo-item {
+    width: 75vw;
+    height: 5rem;
+    background-color: #eee;
+}
+
 /* Pseudoklassen */
 li:hover {
     background: #ccc;
+    font-variant: small-caps;
+    font-family: "Doto";
 }
 
 /* Double pseudo class */
@@ -60,4 +75,9 @@ a:hover {
 
 a:visited {
     color: forestgreen;
+}
+
+p {
+    line-height: 18px;
+    font-size: 14px;
 }
