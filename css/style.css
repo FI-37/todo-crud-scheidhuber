@@ -1,0 +1,37 @@
+/* Selektoren */
+
+/* Tag-Selektor (bspw. <ul ... */
+ul {
+    background-color: rgb(58, 165, 42);
+    border: 5px solid blue;
+}
+
+/* ID-Selektor (bspw. <div id="description"... */
+#description {
+    color: royalblue;
+}
+
+h2 {
+    color: red;
+}
+
+/* Tag-Selektor - alle span's in h2's (children of h2 if span)  */
+h2 span {
+    color: green;
+}
+
+/* Class-Selektor (bspw. <p class="completed" ... */
+.completed {
+    text-decoration: line-through;
+    border: 20px dotted black;
+}
+
+/* Tag with Class-Selektor - alle input's mit Klasse required */
+input.required {
+    border: 3px solid green;
+}
+
+/* Attribute-Selektor - alle inputs mit dem Wert text im Attribut type */
+input[type="text"] {
+    font-size: 48px;
+}

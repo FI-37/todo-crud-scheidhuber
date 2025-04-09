@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO Liste</title>
+    <link href="css/style.css" rel="stylesheet" />
 </head>
 <body>
     <h1>TODO Liste</h1>
 
     <div id="error-message" style="color:red;"></div>
 
-    <form id="todo-form">
+    <div id="description" class="blue-background">
+        <h2>Beschreibung der <span>TODO-Liste</span></h2>
+        <p>Hier stehen unsere Todos und die können bearbeitet werden.</p>
+    </div>
+
+    <form id="todo-form" class="blue-background">
         <input type="text" id="todo-input" placeholder="Neue Aufgabe hinzufügen">
         <button type="submit">Hinzufügen</button>
     </form>
@@ -24,6 +30,15 @@
         <input type="text" id="todo-update-input">
         <button type="submit">Update</button>
     </form>
+
+    <a href="https://www.startpage.com/" target="_blank">Suchmaschine</a>
+    <script>
+        let link = document.querySelector("a");
+        link.addEventListener("click", function(event) {
+            event.preventDefault();
+            alert("Der Link wurde geklickt, aber die Standardaktion wurde verhindert.");
+        });
+    </script>
 
     <script src="todo.js"></script>
 </body>

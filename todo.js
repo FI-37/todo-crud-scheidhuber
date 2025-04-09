@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 li.appendChild(getCompleteButton(item));
                 li.appendChild(getUpdateButton(item));
                 if (item.completed) {
-                    li.style.textDecoration = 'line-through';
+                    li.className = 'completed';
                 }
                 todoList.appendChild(li);
             });
@@ -91,6 +91,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const inputElement = document.getElementById('todo-input');
         const todoInput = inputElement.value;
         inputElement.value = "";
+
+        if(todoInput == "") {
+            document.querySelector('input[type="text"]').className = "required";
+            document.getElementById('error-message').innerText = `Bitte ausfüllen!`;
+            return;
+        }
 
         fetch(apiUrl, {
             method: 'POST',
