@@ -1,5 +1,9 @@
 /* Selektoren */
 
+body {
+    font-family: "Doto";
+}
+
 /* Tag-Selektor (bspw. <ul ... */
 ul {
     background-color: rgb(58, 165, 42);
@@ -12,6 +16,7 @@ ul {
 }
 
 h2 {
+    font-family: "Bungee Spice";
     color: red;
 }
 
@@ -34,4 +39,25 @@ input.required {
 /* Attribute-Selektor - alle inputs mit dem Wert text im Attribut type */
 input[type="text"] {
     font-size: 48px;
+    font-family: "Doto";
+}
+
+/* Pseudoklassen */
+li:hover {
+    background: #ccc;
+}
+
+/* Double pseudo class */
+li:hover button:first-child {
+    font-weight: bold;
+}
+
+/* Default-Pseudoklassen überschreiben */
+a:hover {
+    text-decoration: overline;
+    background-color: #eee;
+}
+
+a:visited {
+    color: forestgreen;
 }
