@@ -81,3 +81,17 @@ p {
     line-height: 18px;
     font-size: 14px;
 }
+
+.image-example {
+    width: 300px;
+    height: auto;
+    border: 2px solid #000;
+}
+
+.video-example {
+    width: 500px;
+}
+
+#cat-video {
+    border: 3px solid #ddd;
+}
