@@ -96,10 +96,20 @@ p {
     border: 3px solid #ddd;
 }
 
-
+/* Kombinatoren */
 .parent > .child {
     color: green;
 }
 .sibling-1 + .sibling-2 {
     color: red;
+}
+
+/* Pseudo Element */
+.pseudo::before {
+    content: "Vorher ";
+    color: blue;
+}
+.pseudo::after {
+    content: " Nachher";
+    color: green;
 }
