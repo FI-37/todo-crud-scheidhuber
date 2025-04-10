@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const getCompleteButton = (item) => {
         const completeButton = document.createElement('button');
+        completeButton.className = 'complete-button';
         completeButton.textContent = item.completed ? "Unerledigt" : "Erledigt";
 
         completeButton.addEventListener('click', function() {
@@ -54,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const getUpdateButton = (item) => {
 
         const updateButton = document.createElement('button');
+        updateButton.className = 'update-button';
         updateButton.textContent = 'Aktualisieren';
 
         // Handle update button click

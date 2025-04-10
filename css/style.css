@@ -78,7 +78,8 @@ input[type="text"] {
 }
 .add-button,
 .complete-button,
-.delete-button {
+.delete-button,
+.update-button {
     background-color: green;
     color: white;
     border: none;
@@ -94,3 +95,7 @@ input[type="text"] {
 .delete-button {
     background-color: red;
 }
+.update-button {
+    background-color: lightseagreen;
+}
+
