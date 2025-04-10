@@ -53,6 +53,10 @@ li.todo-item {
     width: 75vw;
     height: 5rem;
     background-color: #eee;
+
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #333;
 }
 
 /* Pseudoklassen */
@@ -129,4 +133,31 @@ p {
     height: 50px;
     overflow: auto;
     background-color: lightblue;
+}
+
+
+.pos {
+    background-color: aquamarine;
+    border: 1px dotted burlywood;
+}
+.static-pos {
+    position: static;
+}
+.relative-pos {
+    position: relative;
+    top: 10px;
+}
+.absolute-pos {
+    position: absolute;
+    top: 20px;
+    left: 50px;
+}
+.fixed-pos {
+    position: fixed;
+    bottom: 100px;
+    left: 500px;
+}
+.sticky-pos {
+    position: sticky;
+    top: 20px;
 }
