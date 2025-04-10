@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet">
     <title>TODO Liste</title>
 </head>
 <body>
@@ -12,17 +13,17 @@
 
     <form id="todo-form">
         <input type="text" id="todo-input" placeholder="Neue Aufgabe hinzufügen">
-        <button type="submit">Hinzufügen</button>
+        <button type="submit" class="add-button">Hinzufügen</button>
     </form>
 
-    <ul id="todo-list">
+    <ul id="todo-list" class="todo-list">
         <!-- TODO items will be inserted here dynamically -->
     </ul>
 
     <form id="todo-update-form" style="display: none;">
         <input type="hidden" id="todo-id">
         <input type="text" id="todo-update-input">
-        <button type="submit">Update</button>
+        <button type="submit" class="add-button">Update</button>
     </form>
 
     <script src="todo.js"></script>

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const getDeleteButton = (item) => {
         const deleteButton = document.createElement('button');
+        deleteButton.className = 'delete-button';
         deleteButton.textContent = 'Löschen';
 
         // Handle delete button click
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const getCompleteButton = (item) => {
         const completeButton = document.createElement('button');
+        completeButton.className = 'complete-button';
         completeButton.textContent = item.completed ? "Unerledigt" : "Erledigt";
 
         completeButton.addEventListener('click', function() {
@@ -53,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const getUpdateButton = (item) => {
 
         const updateButton = document.createElement('button');
+        updateButton.className = 'update-button';
         updateButton.textContent = 'Aktualisieren';
 
         // Handle update button click
@@ -73,10 +76,13 @@ document.addEventListener('DOMContentLoaded', function() {
             todoList.innerHTML = "";
             data.forEach(item => {
                 const li = document.createElement('li');
+                const div = document.createElement('div');
+                li.className = "todo-item";
                 li.textContent = item.title;
-                li.appendChild(getDeleteButton(item));
-                li.appendChild(getCompleteButton(item));
-                li.appendChild(getUpdateButton(item));
+                div.appendChild(getDeleteButton(item));
+                div.appendChild(getCompleteButton(item));
+                div.appendChild(getUpdateButton(item));
+                li.appendChild(div);
                 if (item.completed) {
                     li.style.textDecoration = 'line-through';
                 }
